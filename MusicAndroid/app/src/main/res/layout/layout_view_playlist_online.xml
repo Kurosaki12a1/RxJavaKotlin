@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorTabBackgroundLighter"
+    android:padding="20dp"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/namePlayList"
+            />
+
+        <TextView
+            android:id="@+id/userUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/namePlayList"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userUpload"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:id="@+id/ViewListen"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ViewListen"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:id="@+id/Liked"
+            android:textColor="@color/colorWhite"/>
+
+        <ImageView
+            android:background="@color/colorWhite"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_trash"
+            android:id="@+id/deletePlayList"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+

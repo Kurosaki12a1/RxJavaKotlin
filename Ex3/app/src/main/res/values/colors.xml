@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTabBackgroundLighter">#423752</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="blue">#26ae90</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#ffa500</color>
+    <color name="greencute">#12708b</color>
+    <color name="orange">#FF5C00</color>
+    <color name="gentle_color">#F5E3D3</color>
+</resources>
