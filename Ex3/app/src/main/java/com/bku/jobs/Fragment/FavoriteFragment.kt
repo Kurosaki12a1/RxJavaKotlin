@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +30,10 @@ import butterknife.ButterKnife
 class FavoriteFragment : Fragment() {
 
 
-    private var recyclerView = view!!.findViewById<RecyclerView>(R.id.rvFavoriteList)
-    private var db: OfflineDatabaseHelper? = null
-    private var adapter: FavoriteJobAdapter? = null
+    private  lateinit var recyclerView  : RecyclerView
+
+    private lateinit var db: OfflineDatabaseHelper
+    private lateinit var adapter: FavoriteJobAdapter
     private val mListener: FavoriteFragment.OnFragmentInteractionListener? = null
 
 
@@ -41,11 +43,13 @@ class FavoriteFragment : Fragment() {
 
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_favorite_job, container, false)
-        db = OfflineDatabaseHelper(context!!)
-        bindView()
+        db = OfflineDatabaseHelper(requireContext())
+        Log.d("TESTING","SIZE JOB : "+db.sizedb())
+        bindView(view)
         return view
     }
 
@@ -55,12 +59,13 @@ class FavoriteFragment : Fragment() {
     }
 
 
-    fun bindView() {
-
-        recyclerView!!.layoutManager = LinearLayoutManager(context)
+    fun bindView(view : View) {
+        recyclerView=view.findViewById(R.id.rvFavoriteList)
+        //recyclerView = view!!.findViewById(R.id.rvFavoriteList)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         restoreFromDb()
 
-        activity!!.supportFragmentManager.addOnBackStackChangedListener { restoreFromDb() }
+        requireActivity().supportFragmentManager.addOnBackStackChangedListener { restoreFromDb() }
     }
 
     interface OnFragmentInteractionListener {
@@ -69,9 +74,9 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun restoreFromDb() {
-        val lstJob = db!!.allJob
-        adapter = FavoriteJobAdapter(activity!!, lstJob)
-        recyclerView!!.adapter = adapter
+        val lstJob = db.allJob
+        adapter = FavoriteJobAdapter(requireActivity(), lstJob)
+        recyclerView?.adapter = adapter
     }
 
     override fun onResume() {

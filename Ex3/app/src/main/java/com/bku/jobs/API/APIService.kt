@@ -13,8 +13,8 @@ import rx.Observable
 
 interface APIService {
 
-    @get:GET("/positions.json")
-    val jobData: Observable<List<JobData>>
+    @GET("/positions.json")
+    fun getJobData() : Observable<List<JobData>>
 
     @GET("/positions.json?")
     fun getSearchData(@Query("description") keySearch: String): Observable<List<JobData>>

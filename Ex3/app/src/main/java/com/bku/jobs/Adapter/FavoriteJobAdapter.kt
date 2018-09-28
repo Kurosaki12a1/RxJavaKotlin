@@ -32,13 +32,13 @@ class FavoriteJobAdapter(context: Context, lst: ArrayList<JobData>) : RecyclerVi
     var lstJobInfo: ArrayList<JobData>
 
     companion object {
-        private var ctx: Context? = null
+        private  lateinit var ctx: Context
     }
 
     init {
         ctx = context
-        this.lstJobInfo = ArrayList(lst)
-        this.lstJobInfo = lst
+        lstJobInfo = ArrayList(lst)
+        lstJobInfo = lst
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteJobAdapter.ViewHolder {
@@ -49,16 +49,16 @@ class FavoriteJobAdapter(context: Context, lst: ArrayList<JobData>) : RecyclerVi
     override fun onBindViewHolder(holder: FavoriteJobAdapter.ViewHolder, position: Int) {
         val jobInfo = lstJobInfo[position]
         Glide.with(ctx).load(jobInfo.companyLogo).fitCenter().into(holder.companyLogo)
-        holder.titleJob!!.text = jobInfo.title
-        holder.typeJob!!.text = "/ " + jobInfo.type
-        holder.companyName!!.text = "Company Name : " + jobInfo.company
-        holder.createdAt!!.text = jobInfo.createdAt
-        holder.location!!.text = "Location : " + jobInfo.location
+        holder.titleJob?.text = jobInfo.title
+        holder.typeJob?.text = "/ " + jobInfo.type
+        holder.companyName?.text = "Company Name : " + jobInfo.company
+        holder.createdAt?.text = jobInfo.createdAt
+        holder.location?.text = "Location : " + jobInfo.location
         holder.itemView.setOnClickListener {
             val utilityJob = UtilityJob.getInstance()
             utilityJob.jobInfo = jobInfo
 
-            ctx!!.startActivity(Intent(ctx, JobDetailActivity::class.java ))
+            ctx.startActivity(Intent(ctx, JobDetailActivity::class.java ))
         }
     }
 
@@ -67,21 +67,21 @@ class FavoriteJobAdapter(context: Context, lst: ArrayList<JobData>) : RecyclerVi
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.companyLogo)
-        internal var companyLogo: ImageView? = null
-        @BindView(R.id.titleJob)
-        internal var titleJob: TextView? = null
-        @BindView(R.id.companyName)
-        internal var companyName: TextView? = null
-        @BindView(R.id.typeJob)
-        internal var typeJob: TextView? = null
-        @BindView(R.id.location)
-        internal var location: TextView? = null
-        @BindView(R.id.createdAt)
-        internal var createdAt: TextView? = null
+
+        internal var companyLogo: ImageView = itemView.findViewById(R.id.companyLogo)
+
+        internal var titleJob: TextView? = itemView.findViewById(R.id.titleJob)
+
+        internal var companyName: TextView? = itemView.findViewById(R.id.companyName)
+
+        internal var typeJob: TextView? = itemView.findViewById(R.id.typeJob)
+
+        internal var location: TextView? = itemView.findViewById(R.id.location)
+
+        internal var createdAt: TextView? = itemView.findViewById(R.id.createdAt)
 
         init {
-            ButterKnife.bind(this, itemView)
+
         }
     }
 

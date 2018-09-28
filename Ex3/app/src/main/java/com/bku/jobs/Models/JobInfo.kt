@@ -3,6 +3,7 @@ package com.bku.jobs.Models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.os.Parcelable.Creator
 
 /**
  * Created by Welcome on 5/21/2018.
@@ -108,15 +109,17 @@ class JobInfo : Parcelable {
                 COLUMN_Company + " TEXT, " + COLUMN_CompanyURL + " TEXT, " +
                 COLUMN_CompanyLogo + " TEXT, " + COLUMN_URL + " TEXT " + ");"
 
-        val CREATOR: Parcelable.Creator<*> = object : Parcelable.Creator {
-            override fun createFromParcel(`in`: Parcel): JobInfo {
+
+
+        /*val CREATOR: Creator<*> =  Creator {
+             fun createFromParcel(`in`: Parcel): JobInfo {
                 return JobInfo(`in`)
             }
 
-            override fun newArray(size: Int): Array<JobInfo> {
+             fun newArray(size: Int): Array<JobInfo?> {
                 return arrayOfNulls(size)
             }
-        }
+        }*/
     }
 
 }

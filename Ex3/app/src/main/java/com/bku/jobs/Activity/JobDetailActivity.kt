@@ -57,25 +57,26 @@ class JobDetailActivity : AppCompatActivity() {
      internal var jobInfo: JobData? = null*/
 
 
-    private var liked = findViewById<ImageView>(R.id.liked)
-    private var jobTitle = findViewById<TextView>(R.id.jobTitle)
-    private var jobType = findViewById<TextView>(R.id.jobType)
-    private var company = findViewById<TextView>(R.id.companyName)
-    private var location = findViewById<TextView>(R.id.location)
-    private var jobCreated = findViewById<TextView>(R.id.jobCreated)
-    private var jobDescription = findViewById<TextView>(R.id.jobDescription)
-    private var applyBtn = findViewById<Button>(R.id.applyBtn)
-    private var backBtn = findViewById<ImageView>(R.id.backBtn)
+    private lateinit var liked: ImageView
+    private lateinit var jobTitle: TextView
+    private lateinit var jobType: TextView
+    private lateinit var company: TextView
+    private lateinit var location: TextView
+    private lateinit var jobCreated: TextView
+    private lateinit var jobDescription: TextView
+    private lateinit var applyBtn: Button
+    private lateinit var backBtn: ImageView
 
-    private var howToApply: String = " "
+    private var howToApply: String? = " "
 
-    private var db: OfflineDatabaseHelper? = null   //  ? = for null saferty
-    private var jobInfo: JobData? = null
+    private lateinit var db: OfflineDatabaseHelper //  ? = for null saferty
+    private lateinit var jobInfo: JobData
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_detail)
+        bindView();
         //  ButterKnife.bind(this)
 
         //Declare Database
@@ -97,7 +98,7 @@ class JobDetailActivity : AppCompatActivity() {
             var builder: AlertDialog.Builder? = null
             val message = TextView(this@JobDetailActivity)
             message.setPadding(10, 5, 5, 0)
-            message.text = fromHtml(howToApply)
+            message.text = howToApply?.let { it1 -> fromHtml(it1) }
             message.movementMethod = LinkMovementMethod.getInstance()
             builder = AlertDialog.Builder(this@JobDetailActivity)
             builder.setTitle(fromHtml("<b> How to apply: </b>"))
@@ -108,22 +109,33 @@ class JobDetailActivity : AppCompatActivity() {
                     .show()
         }
 
-        liked.setOnClickListener{
-            if(db!!.checkExist(jobInfo!!.id)){
-                db!!.deleteJob(jobInfo!!.id)
+        liked.setOnClickListener {
+            if (db.checkExist(jobInfo.id)) {
+                db.deleteJob(jobInfo.id)
                 liked.setImageDrawable(getDrawable(R.drawable.ic_fav_video))
-            }
-            else{
-                db!!.insertJob(jobInfo!!)
+            } else {
+                db.insertJob(jobInfo)
                 liked.setImageDrawable(getDrawable(R.drawable.ic_faved_album))
             }
         }
 
     }
 
+    private fun bindView() {
+        liked = findViewById<ImageView>(R.id.liked)
+        jobTitle = findViewById<TextView>(R.id.jobTitle)
+        jobType = findViewById<TextView>(R.id.jobType)
+        company = findViewById<TextView>(R.id.companyName)
+        location = findViewById<TextView>(R.id.location)
+        jobCreated = findViewById<TextView>(R.id.jobCreated)
+        jobDescription = findViewById<TextView>(R.id.jobDescription)
+        applyBtn = findViewById<Button>(R.id.applyBtn)
+        backBtn = findViewById<ImageView>(R.id.backBtn)
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun checkAlreadyLiked() {
-        if (db!!.checkExist(jobInfo!!.id)) {
+        if (db.checkExist(jobInfo.id)) {
             liked.setImageDrawable(getDrawable(R.drawable.ic_faved_album))
         } else {
             liked.setImageDrawable(getDrawable(R.drawable.ic_fav_video))
@@ -131,14 +143,14 @@ class JobDetailActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        jobTitle.text= jobInfo!!.title
-        company.text = jobInfo!!.company
-        jobType.text = jobInfo!!.type
-        location.text = jobInfo!!.location
-        jobCreated.text = jobInfo!!.createdAt
-        jobDescription.text = fromHtml(jobInfo!!.description)
+        jobTitle.text = jobInfo.title
+        company.text = jobInfo.company
+        jobType.text = jobInfo.type
+        location.text = jobInfo.location
+        jobCreated.text = jobInfo.createdAt
+        jobDescription.text = jobInfo.description?.let { fromHtml(it) }
         jobDescription.movementMethod = LinkMovementMethod.getInstance()
-        howToApply = jobInfo!!.howToApply
+        howToApply = jobInfo.howToApply
 
     }
 

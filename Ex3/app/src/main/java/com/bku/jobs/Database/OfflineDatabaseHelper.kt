@@ -17,7 +17,7 @@ import java.util.ArrayList
 
 class OfflineDatabaseHelper : SQLiteOpenHelper {
 
-    private var context: Context? = null
+    private var context: Context
 
     // Select All Query
     val allJob: ArrayList<JobData>
@@ -51,6 +51,10 @@ class OfflineDatabaseHelper : SQLiteOpenHelper {
             return listJob
         }
 
+    fun sizedb() : Int{
+        return allJob.size
+    }
+
     constructor(context: Context) : super(context, DATABASE_NAME, null, DATABASE_VERSION) {
         this.context = context
     }
@@ -69,6 +73,8 @@ class OfflineDatabaseHelper : SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + JobInfo.TABLE_NAME)
         onCreate(db)
     }
+
+
 
     fun insertJob(job: JobData): Int {
         val db = writableDatabase

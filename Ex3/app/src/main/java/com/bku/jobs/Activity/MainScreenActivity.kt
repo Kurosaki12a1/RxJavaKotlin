@@ -24,15 +24,16 @@ import devlight.io.library.ntb.NavigationTabBar
 class MainScreenActivity : AppCompatActivity(), HomeFragment.OnFragmentInteractionListener, FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
 
-    private var mainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
-    private var mainViewPager= findViewById<ViewPager>(R.id.vp_horizontal_ntb)
-    private var txtStatus = findViewById<TextView>(R.id.txtTab)
+    private lateinit var mainFragmentPagerAdapter: MainFragmentPagerAdapter
+    private lateinit var mainViewPager:ViewPager
+    private lateinit var txtStatus :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainViewPager = findViewById(R.id.vp_horizontal_ntb)
-        mainViewPager.offscreenPageLimit = 4
+        txtStatus=findViewById(R.id.txtTab)
+        mainViewPager.offscreenPageLimit = 3
         mainFragmentPagerAdapter = MainFragmentPagerAdapter(this, supportFragmentManager)
         mainViewPager.adapter = mainFragmentPagerAdapter
         initUI()
@@ -65,14 +66,14 @@ class MainScreenActivity : AppCompatActivity(), HomeFragment.OnFragmentInteracti
                         .title("Your Favorite Job")
                         .build()
         )
-        models.add(
+      /*  models.add(
                 NavigationTabBar.Model.Builder(
                         resources.getDrawable(R.drawable.ic_profile_transparent),
                         Color.parseColor(colors[3]))
                         .title("Profile")
                         .build()
         )
-
+*/
         navigationTabBar.models = models
         navigationTabBar.setViewPager(mainViewPager, 0)
         //set Default Item
@@ -101,11 +102,11 @@ class MainScreenActivity : AppCompatActivity(), HomeFragment.OnFragmentInteracti
                     txtStatus.text = "Home"
                 } else if (position == 1) {
                     txtStatus.text = "Search"
-                } else if (position == 2) {
+                } else  {
                     txtStatus.text = "Your Favorite Job"
-                } else {
+                }/* else {
                     txtStatus.text = "Profile"
-                }
+                }*/
             }
 
             override fun onPageScrollStateChanged(state: Int) {
